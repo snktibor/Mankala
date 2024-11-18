@@ -1,12 +1,15 @@
 package prog.hazi;
 
 public enum Team {
-    North(0),
-    South(1);
+    NORTH(0),
+    SOUTH(1);
 
     public final int id;
 
     private Team(int i) {
         this.id = i;
+    }
+    public Team oponentTeam(){
+        return this == NORTH ? SOUTH : NORTH;
     }
 }

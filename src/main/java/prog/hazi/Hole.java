@@ -8,6 +8,10 @@ public class Hole {
     private final Team team;
     private final int teamId;
 
+    public int getBallsCount(){
+        return balls.size();
+    }
+
     public Hole(Team t, int ballsCount, int tid){
         team = t;
         teamId = tid;
