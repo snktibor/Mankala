@@ -8,7 +8,7 @@ public class Hole {
     private final Team team;
     private final int teamId;
 
-    public int getBallsCount(){
+    public int getBallCount(){
         return balls.size();
     }
 

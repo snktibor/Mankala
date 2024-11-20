@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    protected static final List<Hole> holes = new ArrayList<>();
-    int boardSize; //6*2 + 2
+    protected final List<Hole> holes = new ArrayList<>();
+    public int boardSize; //6*2 + 2
     int ballcount;
 
     /**
@@ -18,12 +18,12 @@ public class Board {
         boardSize = bSize;
         ballcount = bCount;
 
-        //StoreA, pitsA: (1,2,3,4,5,6), StoreB, pitsB: (1,2,3,4,5,6)
+        //pitsA: (1,2,3,4,5,6), StoreA, pitsB: (1,2,3,4,5,6), StoreB
         for (Team t: Team.values()) {
-            holes.add(new Store(t));
             for (int i = 1; i <= boardSize; i++) {
                 holes.add(new Pit(t, ballcount, i));
             }
+            holes.add(new Store(t));
         }
     }
 
@@ -41,16 +41,21 @@ public class Board {
             throw new EmptyHole();
         boolean canRepeate = false;
         List<Ball> temp = h.removeBalls();
-        int i = calculateHoleIndex(t, id);
+        int i = calculateHoleIndex(t, id) + 1;
         for(; !temp.isEmpty(); i = (i + 1) % (boardSize * 2 + 2)){
             Hole h2 = holes.get(i);
             if(h2.getId() == 0 && h2.getTeam() != t)
                 continue;
             else if (temp.size() == 1 && h2.getId() > 0 && ((Pit)h2).isPitEmpty())
-                ((Store)getHole(t, 0)).addBall(((Pit)getHole(t.oponentTeam(), h2.getId())).removeBalls()); //Removes balls from the oponent's pit if landing on empty pit
+                ((Store)getHole(t, 0)).addBall(((Pit)getHole(h2.getTeam().oponentTeam(), boardSize + 1 - h2.getId())).removeBalls()); //Removes balls from the oponent's pit if landing on empty pit
             else if (temp.size() == 1 && h2.getId() == 0 /* && h2.getTeam() == t */)
                 canRepeate = true;
             holes.get(i).addBall(temp.remove(0));
+        }
+        Team emptyPits = whichPitsEmpty();
+        if (emptyPits != null) {
+            //cleanPitsOfTeam(emptyPits);
+            cleanPitsOfTeam(emptyPits.oponentTeam());
         }
         return canRepeate;
     }
@@ -63,7 +68,7 @@ public class Board {
      * @return the calculated index of the hole on the board
      */
     private int calculateHoleIndex(Team t, int tid){
-        return tid + t.id*(boardSize + 1);
+        return t.id*(boardSize + 1) + (tid == 0 ? boardSize : tid - 1);
     }
 
     /**
@@ -73,7 +78,7 @@ public class Board {
      * @param tid the index of the hole within the team's side of the board
      * @return the Hole object corresponding to the specified team and hole index
      */
-    private Hole getHole(Team t, int tid){
+    public Hole getHole(Team t, int tid){
         return holes.get(calculateHoleIndex(t, tid));
     }
 
@@ -83,15 +88,19 @@ public class Board {
      *
      * @return the team whose pits are empty, or null if neither team's pits are empty.
      */
-    public Team whichPitsEmpty(){
-        Team t = null;
-        if (((Pit)getHole(Team.NORTH, 0)).isPitEmpty()){
-            t = Team.NORTH;
+    public Team whichPitsEmpty(){       //!Szebbiteni
+
+        for (Team t: Team.values()) {
+            boolean empty = true;
+            for (Hole h: holes) {
+                if (h.getId() > 0 && h.getTeam() == t && h.getBallCount() > 0) {
+                    empty = false;
+                    break;
+                }
+            }
+            if (empty) return t;
         }
-        else if (((Pit)getHole(Team.SOUTH, 0)).isPitEmpty()){
-            t = Team.SOUTH;
-        }
-        return t;
+        return null;
     }
 
     /**
@@ -102,7 +111,7 @@ public class Board {
     public void cleanPitsOfTeam(Team t) {
         Store s1 = (Store)getHole(t, 0);
         for (Hole h: holes) {
-            if (h.getId() > 0 && h.getTeam() == t && h.getBallsCount() > 0)
+            if (h.getId() > 0 && h.getTeam() == t && h.getBallCount() > 0)
                 s1.addBall(((Pit)h).removeBalls());
         }
     }
