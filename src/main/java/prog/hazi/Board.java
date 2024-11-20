@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Board {
     protected final List<Hole> holes = new ArrayList<>();
-    public int boardSize; //6*2 + 2
-    int ballcount;
+    private final int boardSize; //6*2 + 2
+    private final int ballcount;
 
     /**
      * Constructs a Board object with the specified board size and ball count.
@@ -25,6 +25,24 @@ public class Board {
             }
             holes.add(new Store(t));
         }
+    }
+    
+    /**
+     * Returns the board size.
+     *
+     * @return the board size
+     */
+    public int getBoardSize() {
+        return boardSize;
+    }
+
+    /**
+     * Returns the inital number of balls the pits have.
+     *
+     * @return the ball count
+     */
+    public int getNumberOfBalls() {
+        return ballcount;
     }
 
     /**
@@ -82,18 +100,17 @@ public class Board {
         return holes.get(calculateHoleIndex(t, tid));
     }
 
-
     /**
      * Determines which team's pits are empty.
      *
      * @return the team whose pits are empty, or null if neither team's pits are empty.
      */
-    public Team whichPitsEmpty(){       //!Szebbiteni
+    public Team whichPitsEmpty(){
 
         for (Team t: Team.values()) {
             boolean empty = true;
-            for (Hole h: holes) {
-                if (h.getId() > 0 && h.getTeam() == t && h.getBallCount() > 0) {
+            for (int i = 1; i <= boardSize; i++) {
+                if (!((Pit)getHole(t, i)).isPitEmpty()) {
                     empty = false;
                     break;
                 }
