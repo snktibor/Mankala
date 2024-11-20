@@ -72,7 +72,7 @@ public class Board {
         }
         Team emptyPits = whichPitsEmpty();
         if (emptyPits != null) {
-            //cleanPitsOfTeam(emptyPits);
+            //cleanPitsOfTeam(emptyPits) it is not necessary, but it is more readable
             cleanPitsOfTeam(emptyPits.oponentTeam());
         }
         return canRepeate;

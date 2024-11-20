@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 
 public class MancalaGUI extends JFrame {
-    private Board board;
+    private transient Board board;
     private JPanel boardPanel;
     private JLabel statusLabel;
     private Team currentPlayer;
@@ -20,7 +20,7 @@ public class MancalaGUI extends JFrame {
     private void initializeUI() {
         setTitle("Mancala");
         setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         boardPanel = new JPanel();

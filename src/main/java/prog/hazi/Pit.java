@@ -30,7 +30,6 @@ public class Pit extends Hole {
      * @return a list of balls that were in the pit before removal.
      */
     public List<Ball> removeBalls() {
-        //if (isPitEmpty()) throw new EmptyHole();
         List<Ball> temp = new LinkedList<>(balls);
         balls.clear();
         return temp;
