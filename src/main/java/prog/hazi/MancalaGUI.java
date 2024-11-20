@@ -10,6 +10,7 @@ public class MancalaGUI extends JFrame {
     private Board board;
     private JPanel boardPanel;
     private JLabel statusLabel;
+    private Team currentPlayer;
 
     public MancalaGUI() {
         board = new Board(6, 5); 
@@ -29,6 +30,8 @@ public class MancalaGUI extends JFrame {
         add(statusLabel, BorderLayout.SOUTH);
 
         updateBoard();
+
+        currentPlayer = Team.NORTH;
     }
 
     private void updateBoard() {
@@ -96,16 +99,19 @@ public class MancalaGUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                if (board.sowing(holeId, team)) {
-                    statusLabel.setText("Player " + team + " can repeat the turn.");
-                } else {
-                    statusLabel.setText("Player " + (team == Team.NORTH ? "SOUTH" : "NORTH") + "'s turn.");
+            if (currentPlayer == team){
+                try {
+                    if (board.sowing(holeId, team)) {
+                        statusLabel.setText("Player " + team + " can repeat the turn.");
+                    } else {
+                        currentPlayer = team.oponentTeam();
+                        statusLabel.setText("Player " + (team == Team.NORTH ? "SOUTH" : "NORTH") + "'s turn.");
+                    }
+                } catch (EmptyHole emptyHole) {
+                    statusLabel.setText("The hole is empty.");
                 }
-            } catch (EmptyHole emptyHole) {
-                statusLabel.setText("The hole is empty.");
+                updateBoard();
             }
-            updateBoard();
         }
     }
 }
