@@ -28,3 +28,5 @@ class RoundedBorder implements Border {
         g.drawRoundRect(x, y, width-1, height-1, radius, radius);
     }
 }
+
+//Source: https://stackoverflow.com/questions/423950/rounded-swing-jbutton-using-java
