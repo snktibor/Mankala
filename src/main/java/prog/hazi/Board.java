@@ -64,11 +64,16 @@ public class Board {
             Hole h2 = holes.get(i);
             if(h2.getId() == 0 && h2.getTeam() != t)
                 continue;
-            else if (temp.size() == 1 && h2.getId() > 0 && ((Pit)h2).isPitEmpty())
+            else if (temp.size() == 1 && h2.getId() > 0 && ((Pit)h2).isPitEmpty() && !((Pit)getHole(h2.getTeam().oponentTeam(), boardSize + 1 - h2.getId())).isPitEmpty()){
                 ((Store)getHole(t, 0)).addBall(((Pit)getHole(h2.getTeam().oponentTeam(), boardSize + 1 - h2.getId())).removeBalls()); //Removes balls from the oponent's pit if landing on empty pit
-            else if (temp.size() == 1 && h2.getId() == 0 /* && h2.getTeam() == t */)
+                ((Store)getHole(t, 0)).addBall(temp.remove(0));
+                }
+            else if (temp.size() == 1 && h2.getId() == 0 /* && h2.getTeam() == t */){
+                h2.addBall(temp.remove(0));
                 canRepeate = true;
-            holes.get(i).addBall(temp.remove(0));
+            }
+            else
+                h2.addBall(temp.remove(0));
         }
         Team emptyPits = whichPitsEmpty();
         if (emptyPits != null) {
