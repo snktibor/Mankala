@@ -1,4 +1,4 @@
-package prog.hazi.ui;
+package prog.hazi.deprecated;
 
 import javax.swing.*;
 
@@ -6,6 +6,8 @@ import org.w3c.dom.events.MouseEvent;
 
 import prog.hazi.model.Settings;
 import prog.hazi.model.Team;
+import prog.hazi.ui.RoundedButton;
+import prog.hazi.ui.TablePanel;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
