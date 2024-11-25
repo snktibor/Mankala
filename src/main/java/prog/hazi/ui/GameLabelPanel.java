@@ -17,7 +17,7 @@ public class GameLabelPanel extends JPanel {
         initializeUI();
     }
 
-    public void initializeUI() {
+    private void initializeUI() {
         setLayout(new FlowLayout());
         add(statusLabel);
         setOpaque(false);

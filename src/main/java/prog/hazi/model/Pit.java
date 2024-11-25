@@ -1,5 +1,4 @@
 package prog.hazi.model;
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 

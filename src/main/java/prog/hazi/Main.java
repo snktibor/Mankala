@@ -1,7 +1,7 @@
 package prog.hazi;
 import javax.swing.*;
 
-import prog.hazi.ui.MancalaGUI;
+import prog.hazi.deprecated.MancalaGUI;
 
 public class Main {
     public static void main(String[] args) {

@@ -10,7 +10,6 @@ import prog.hazi.model.Team;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 
 public class GameUI extends JPanel {
     private Board board;
