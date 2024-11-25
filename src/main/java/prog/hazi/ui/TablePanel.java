@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TablePanel extends JPanel {
-    private double paddingPercentage; // 10% padding
+    private double paddingPercentage;
     private int borderThickness = 5; // Thickness of the border
     private Color shadowColor = new Color(0, 0, 0, 64); // 25% black for shadow
     private int shadowOffsetX = -5; // Offset for the shadow
@@ -13,6 +13,12 @@ public class TablePanel extends JPanel {
 
     private Color fillColor;
 
+    /**
+     * Constructs a TablePanel with the specified fill color and padding.
+     *
+     * @param fillColor the color used to fill the panel
+     * @param padding the padding percentage to be applied to the panel
+     */
     public TablePanel(Color fillColor, double padding) {
         this.fillColor = fillColor;
         this.paddingPercentage = padding;
@@ -55,13 +61,10 @@ public class TablePanel extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        // Calculate the preferred size based on the size of the components inside
         int maxX = Integer.MIN_VALUE;
         int minX = Integer.MAX_VALUE;
-
         int maxY = Integer.MIN_VALUE;
         int minY = Integer.MAX_VALUE;
-
 
         for (Component comp : getComponents()) {
             Dimension compSize = comp.getPreferredSize();
