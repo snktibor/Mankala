@@ -1,9 +1,12 @@
 package prog.hazi.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board {
+public class Board implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     protected final List<Hole> holes = new ArrayList<>();
     private final int boardSize; //6*2 + 2
     private final int ballcount;

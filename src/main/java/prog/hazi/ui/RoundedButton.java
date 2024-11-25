@@ -5,6 +5,7 @@ import java.awt.*;
 
 public class RoundedButton extends JButton {
     private Color fillColor;
+    private Color outherFillColor;
     private Color borderColor;
     private int borderThickness;
 
@@ -15,8 +16,9 @@ public class RoundedButton extends JButton {
     private int shadowThickness = 5; // Thickness for the shadow
 
 
-    public RoundedButton(String text, Color fillColor, Color borderColor, int borderThickness) {
+    public RoundedButton(String text, Color fillColor, Color outherColor, Color borderColor, int borderThickness) {
         super(text);
+        outherFillColor = outherColor;
         this.fillColor = fillColor;
         this.borderColor = borderColor;
         this.borderThickness = borderThickness;
@@ -25,8 +27,9 @@ public class RoundedButton extends JButton {
         setBorderPainted(false);
     }
 
-    public RoundedButton(ImageIcon icon, Color fillColor, Color borderColor, int borderThickness) {
+    public RoundedButton(ImageIcon icon, Color fillColor, Color outherColor, Color borderColor, int borderThickness) {
         super();
+        outherFillColor = outherColor;
         this.setIcon(icon);
         this.fillColor = fillColor;
         this.borderColor = borderColor;
@@ -59,7 +62,7 @@ public class RoundedButton extends JButton {
         g2.drawRoundRect(borderThickness / 2, borderThickness / 2, getWidth() - borderThickness, getHeight() - borderThickness, 20, 20);
 
         // Draw the outer fill to cover any overflow
-        g2.setColor(new Color(207, 175, 99));
+        g2.setColor(outherFillColor);
         g2.setStroke(new BasicStroke(4));
         g2.drawRoundRect(borderThickness / 2 - 5, borderThickness / 2 - 4, getWidth()+4, getHeight()+4, 25, 25);
         

@@ -97,6 +97,14 @@ public class SettingsHandler {
             e.printStackTrace();
         }
     }
+    
+    public static void resetSettings(Settings st) {
+        st.reset();
+        Team.NORTH.setName("Red");
+        Team.NORTH.setColor(new Color(255, 68, 51), new Color(184, 62, 51));
+        Team.SOUTH.setName("Blue");
+        Team.SOUTH.setColor(new Color(75, 127, 210), new Color(39, 84, 157));
+    }
 
     private static String colorToHex(Color color) {
         return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());

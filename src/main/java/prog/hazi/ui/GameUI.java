@@ -4,14 +4,16 @@ import javax.swing.*;
 
 import prog.hazi.model.Board;
 import prog.hazi.model.EmptyHole;
+import prog.hazi.model.Settings;
 import prog.hazi.model.Team;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 public class GameUI extends JPanel {
-    private transient Board board;
+    private Board board;
     private Team currentPlayer;
 
     private JPanel boardPanel;
@@ -19,8 +21,11 @@ public class GameUI extends JPanel {
     private JLabel statusLabel;
 
     private ImageIcon ballIcon;
-
+    private Color tableColor = new Color(207, 175, 99);
     
+    public GameUI(Settings st) {
+        this(st.getBoardSize(), st.getBallCount());
+    }
 
     public GameUI(int boardSize, int ballCount) {
         board = new Board(boardSize, ballCount); 
@@ -33,12 +38,18 @@ public class GameUI extends JPanel {
         initializeUI();
     }
 
+    public void reinitialize() {
+        // Reinitialize the UI components and event listeners
+        initializeUI();
+        updateBoard();
+    }
+
     private void initializeUI() {
         setLayout(new BorderLayout());
         setBackground(currentPlayer.getBgColor());
 
         // Create and add the table panel
-        TablePanel tablePanel = new TablePanel();
+        TablePanel tablePanel = new TablePanel(tableColor, 0.03);
         tablePanel.setOpaque(false);
         add(tablePanel, BorderLayout.CENTER);
 
@@ -56,7 +67,7 @@ public class GameUI extends JPanel {
         updateBoard();
     }
 
-    private void updateBoard() {
+    public void updateBoard() {
         boardPanel.removeAll();
         boardPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -132,7 +143,7 @@ public class GameUI extends JPanel {
     }
 
     private JButton createHoleButton(int ballCount, Team t, int cols, int rows) {
-        JButton button = new RoundedButton("", t.getColor(), Color.BLACK, 5);
+        JButton button = new RoundedButton("", t.getColor(), tableColor,  Color.BLACK, 5);
         button.setLayout(new GridBagLayout()); // Use GridBagLayout for centering
         button.setPreferredSize(new Dimension(50, 60)); // Set fixed size for the button
         button.setMargin(new Insets(0, 0, 0, 0)); // Reduce padding inside the button
@@ -175,6 +186,22 @@ public class GameUI extends JPanel {
         return button;
     }
 
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public void setCurrentPlayer(Team t) {
+        currentPlayer = t;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public Team getCurrentPlayer() {
+        return currentPlayer;
+    }
 
     private class ButtonListener implements ActionListener {
         private int holeId;

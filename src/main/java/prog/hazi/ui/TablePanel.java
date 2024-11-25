@@ -4,12 +4,19 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TablePanel extends JPanel {
-    private double paddingPercentage = 0.03; // 10% padding
+    private double paddingPercentage; // 10% padding
     private int borderThickness = 5; // Thickness of the border
     private Color shadowColor = new Color(0, 0, 0, 64); // 25% black for shadow
     private int shadowOffsetX = -5; // Offset for the shadow
     private int shadowOffsetY = 5; // Offset for the shadow
     private int shadowSpread = 10; // Offset for the shadow
+
+    private Color fillColor;
+
+    public TablePanel(Color fillColor, double padding) {
+        this.fillColor = fillColor;
+        this.paddingPercentage = padding;
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -34,8 +41,8 @@ public class TablePanel extends JPanel {
         g2.setColor(shadowColor);
         g2.fillRoundRect(x - padding + shadowOffsetX - shadowSpread/2, y - padding + shadowOffsetY - shadowSpread/2, width + 2 * padding + shadowSpread, height + 2 * padding + shadowSpread, arcSize, arcSize);
 
-        // Draw the table (white rounded rectangle)
-        g2.setColor(new Color(207, 175, 99));
+        // Draw the table
+        g2.setColor(fillColor);
         g2.fillRoundRect(x - padding, y - padding, width + 2 * padding, height + 2 * padding, arcSize, arcSize);
 
         // Draw the outer border
@@ -49,16 +56,21 @@ public class TablePanel extends JPanel {
     @Override
     public Dimension getPreferredSize() {
         // Calculate the preferred size based on the size of the components inside
-        int maxWidth = 0;
-        int maxHeight = 0;
+        int maxX = Integer.MIN_VALUE;
+        int minX = Integer.MAX_VALUE;
+
+        int maxY = Integer.MIN_VALUE;
+        int minY = Integer.MAX_VALUE;
+
 
         for (Component comp : getComponents()) {
             Dimension compSize = comp.getPreferredSize();
-            maxWidth = Math.max(maxWidth, compSize.width);
-            maxHeight = Math.max(maxHeight, compSize.height);
+            maxX = Math.max(maxX, comp.getX() + compSize.width/2);
+            minX = Math.min(minX, comp.getX() - compSize.width/2);
+            minY = Math.min(minY, comp.getY() - compSize.height/2);
+            maxY = Math.max(maxY, comp.getY() + compSize.height/2);
         }
 
-        int padding = (int) (Math.min(maxWidth, maxHeight) * paddingPercentage);
-        return new Dimension(maxWidth + 2 * padding, maxHeight + 2 * padding);
+        return new Dimension((int)((maxX-minX) * (1+paddingPercentage)), (int)((maxY-minY) * (1+paddingPercentage)));
     }
 }

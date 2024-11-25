@@ -24,4 +24,9 @@ public class Settings {
     public void setBallCount(int bCount) {
         ballCount = bCount;
     }
+
+    public void reset() {
+        boardSize = 6;
+        ballCount = 4;
+    }
 }

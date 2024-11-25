@@ -1,5 +1,7 @@
 package prog.hazi.model;
 
-public class Ball {
+import java.io.Serializable;
+
+public class Ball implements Serializable{
     public Ball() { /* mert. */ }
 }

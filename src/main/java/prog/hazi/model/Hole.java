@@ -1,9 +1,12 @@
 package prog.hazi.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Hole {
+public class Hole implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     protected final List<Ball> balls = new LinkedList<>();
     private final Team team;
     private final int teamId;

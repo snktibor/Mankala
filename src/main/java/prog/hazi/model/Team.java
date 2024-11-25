@@ -1,10 +1,12 @@
 package prog.hazi.model;
 import java.awt.Color;
+
 /**
  * Enum representing the teams in the game.
  * Each team has an ID and a name.
  */
 public enum Team {
+
     NORTH(0, "North", Color.RED),
     SOUTH(1, "South", Color.BLUE);
 
