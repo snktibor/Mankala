@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Settings>
+    <Team bgColor="#b83e33" color="#ff4433" id="0" name="Red"/>
+    <Team bgColor="#27549d" color="#4b7fd2" id="1" name="Blue"/>
+    <Board BoardSize="6" ballCount="4"/>
+</Settings>

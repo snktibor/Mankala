@@ -1,4 +1,4 @@
-package prog.hazi;
+package prog.hazi.ui;
 
 import javax.swing.*;
 import java.awt.*;

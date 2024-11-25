@@ -1,6 +1,11 @@
-package prog.hazi;
+package prog.hazi.ui;
 
 import javax.swing.*;
+
+import prog.hazi.model.Board;
+import prog.hazi.model.EmptyHole;
+import prog.hazi.model.Team;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,10 +49,7 @@ public class GameUI extends JPanel {
 
         statusLabel = new JLabel("Welcome to Mancala!");
 
-        labelPanel = new JPanel();
-        labelPanel.setLayout(new FlowLayout());
-        labelPanel.add(statusLabel);
-        labelPanel.setOpaque(false);
+        labelPanel = new GameLabelPanel(statusLabel);
 
         add(labelPanel, BorderLayout.NORTH);
 
@@ -77,7 +79,6 @@ public class GameUI extends JPanel {
             gbc.gridx = board.getBoardSize() -i + 1;
             gbc.gridy = 0;
             gbc.insets = new Insets(0, 5, 0, 5);
-            pitButton.setBorder(new RoundedBorder(20));
             pitButton.setForeground(Color.BLUE);
             boardPanel.add(pitButton, gbc);
 
@@ -98,7 +99,6 @@ public class GameUI extends JPanel {
             gbc.gridx =  i + 1;
             gbc.gridy = 3;
             gbc.insets = new Insets(0, 5, 0, 5);
-            pitButton.setBorder(new RoundedBorder(20));
             pitButton.setForeground(Color.RED);
             boardPanel.add(pitButton, gbc);
 
@@ -122,8 +122,6 @@ public class GameUI extends JPanel {
         //disable the store buttons
         storeButtonNorth.setEnabled(false);
         storeButtonSouth.setEnabled(false);
-        // storeButtonNorth.setBorder(new RoundedBorder(20));
-        // storeButtonSouth.setBorder(new RoundedBorder(20));
         // storeButtonNorth.setForeground(Color.RED);
         // storeButtonSouth.setForeground(Color.BLUE);
     

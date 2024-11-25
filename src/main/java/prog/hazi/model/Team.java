@@ -1,4 +1,4 @@
-package prog.hazi;
+package prog.hazi.model;
 import java.awt.Color;
 /**
  * Enum representing the teams in the game.
@@ -66,6 +66,10 @@ public enum Team {
     public void setColor(Color c, Color bg) {
         color = c;
         backGColor = bg;
+    }
+
+    public static Team getTeam(int id){
+        return id == 0 ? NORTH : SOUTH;
     }
 
 

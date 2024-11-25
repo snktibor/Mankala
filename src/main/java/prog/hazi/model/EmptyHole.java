@@ -1,4 +1,4 @@
-package prog.hazi;
+package prog.hazi.model;
 
 public class EmptyHole extends Exception{
     public EmptyHole() {

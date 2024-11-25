@@ -1,4 +1,4 @@
-package prog.hazi;
+package prog.hazi.model;
 import java.util.LinkedList;
 import java.util.List;
 
