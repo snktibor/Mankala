@@ -2,7 +2,6 @@ package prog.hazi.deprecated;
 
 import javax.swing.*;
 
-import org.w3c.dom.events.MouseEvent;
 
 import prog.hazi.model.Settings;
 import prog.hazi.model.Team;
@@ -12,22 +11,22 @@ import prog.hazi.ui.TablePanel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
+
 import java.text.NumberFormat;
 
 public class MenuPanel extends JPanel {
-    private Settings st;
+    private transient Settings st;
     private JTextField[] teamLabels;
-    private JDialog parent;
+    private JDialog prnt;
 
-    public MenuPanel(Settings setts, JDialog prnt) {
+    private MenuPanel(Settings setts, JDialog prnt) {
         st = setts;
-        parent = prnt;
+        this.prnt = prnt;
         initializeUI();
     }
 
 
-    public void initializeUI() {
+    private void initializeUI() {
 
         setLayout(new BorderLayout());
         setBackground(new Color(207, 175, 99));
@@ -112,7 +111,7 @@ public class MenuPanel extends JPanel {
 
     private void addPlayButton(JPanel tablePanel, GridBagConstraints gbc, int gridY) {
         JButton playButton = new RoundedButton("Play", new Color(87, 183, 81), new Color(105, 94, 66), Color.BLACK, 5);
-        playButton.setPreferredSize(new Dimension((int)(parent.getWidth()/3.5), parent.getHeight()/12));
+        playButton.setPreferredSize(new Dimension((int)(prnt.getWidth()/3.5), prnt.getHeight()/12));
         playButton.setFont(new Font("Alexandria", Font.BOLD, 20));
         playButton.setForeground(Color.BLACK);
         gbc.gridx = 0;
@@ -122,7 +121,6 @@ public class MenuPanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
 
         playButton.addActionListener(new ButtonListener());
-        //playButton.addMouseListener(new ButtonMouseListener());
         tablePanel.add(playButton, gbc);
     }
 
@@ -164,33 +162,7 @@ public class MenuPanel extends JPanel {
             for (int i = 0; i < teamLabels.length; i++) {
                 Team.getTeam(i).setName(teamLabels[i].getText());
             }
-            parent.dispose();
+            prnt.dispose();
         }
     }
-
-    // //mouse listener
-    // public class ButtonMouseListener implements MouseListener {
-
-    //     @Override
-    //     public void mouseClicked(java.awt.event.MouseEvent e) {
-    //         //Semmi
-    //     }
-    //     @Override
-    //     public void mousePressed(java.awt.event.MouseEvent e) {
-    //         //Semmi
-    //     }
-    //     @Override
-    //     public void mouseReleased(java.awt.event.MouseEvent e) {
-    //         //Semmi
-    //     }
-    //     @Override
-    //     public void mouseEntered(java.awt.event.MouseEvent e) {
-    //         //play button szine legyen piros
-    //         setBackground(new Color(255, 0, 0));
-    //     }
-    //     @Override
-    //     public void mouseExited(java.awt.event.MouseEvent e) {
-    //         setBackground(new Color(0, 94, 66));
-    //     }
-    // }
 }
