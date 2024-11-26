@@ -172,7 +172,6 @@ public class GameUI extends JPanel {
         button.setMargin(new Insets(0, 0, 0, 0)); // Reduce padding inside the button
 
         button.setContentAreaFilled(false); // Remove default button content area
-        //button.setBorderPainted(false); // Remove default button border
         button.setFocusPainted(false); // Remove default focus painting
     
         JPanel ballPanel = new JPanel(new GridBagLayout());
@@ -181,13 +180,7 @@ public class GameUI extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(0, 0, 0, 0); // Add some space between balls
         gbc.anchor = GridBagConstraints.CENTER;
-    
-        //int cols = 5; // Number of columns for balls
-        //int rows = (int) Math.ceil((double) ballCount / cols); // Calculate the number of rows needed
-    
-
-        //rows 
-
+        
         for (int i = 0; i < ballCount; i++) {
             gbc.gridx = i % rows;
             gbc.gridy = i / rows;
