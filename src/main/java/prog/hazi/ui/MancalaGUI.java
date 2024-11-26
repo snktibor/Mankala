@@ -224,14 +224,6 @@ public class MancalaGUI extends JFrame {
         repaint();
     }
 
-    // /**
-    //  * Displays the game screen by switching the CardLayout to the "Game" card.
-    //  */
-    // private void showGame() {
-    //     CardLayout cl = (CardLayout) getContentPane().getLayout();
-    //     cl.show(getContentPane(), "Game");
-    // }
-
     /**
      * Saves the current state of the game.
      * This method saves the current board configuration and the current player's turn.

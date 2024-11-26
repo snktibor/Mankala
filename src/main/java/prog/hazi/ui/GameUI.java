@@ -110,7 +110,7 @@ public class GameUI extends JPanel {
      * @param gridheight  the height of the button in grid cells
      */
     private void addStoreButton(GridBagConstraints gbc, Team team, int gridx, int gridy, int gridheight) {
-        JButton storeButton = createHoleButton(board.getHole(team, 0).getBallCount(), team, 12, 3);
+        JButton storeButton = createHoleButton(board.getHole(team, 0).getBallCount(), team, 3);
         gbc.gridx = gridx;
         gbc.gridy = gridy;
         gbc.gridheight = gridheight;
@@ -134,7 +134,7 @@ public class GameUI extends JPanel {
         int step = reverse ? -1 : 1;
 
         for (int i = start; i != end; i += step) {
-            JButton pitButton = createHoleButton(board.getHole(team, i).getBallCount(), team, 5, 3);
+            JButton pitButton = createHoleButton(board.getHole(team, i).getBallCount(), team, 3);
             pitButton.addActionListener(new ButtonListener(i, team));
             gbc.gridx = reverse ? board.getBoardSize() - i + 1 : i;
             gbc.gridy = pitsY;
@@ -165,20 +165,19 @@ public class GameUI extends JPanel {
         label.setForeground(Color.BLACK);
     }
 
-    private JButton createHoleButton(int ballCount, Team t, int cols, int rows) {
+    private JButton createHoleButton(int ballCount, Team t, int rows) {
         JButton button = new RoundedButton("", t.getColor(), tableColor,  Color.BLACK, 5);
-        button.setLayout(new GridBagLayout()); // Use GridBagLayout for centering
-        button.setPreferredSize(new Dimension(50, 60)); // Set fixed size for the button
-        button.setMargin(new Insets(0, 0, 0, 0)); // Reduce padding inside the button
-
-        button.setContentAreaFilled(false); // Remove default button content area
-        button.setFocusPainted(false); // Remove default focus painting
+        button.setLayout(new GridBagLayout());
+        button.setPreferredSize(new Dimension(50, 60));
+        button.setMargin(new Insets(0, 0, 0, 0));
+        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
     
         JPanel ballPanel = new JPanel(new GridBagLayout());
-        ballPanel.setOpaque(false); // Make the panel transparent
+        ballPanel.setOpaque(false);
     
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(0, 0, 0, 0); // Add some space between balls
+        gbc.insets = new Insets(0, 0, 0, 0);
         gbc.anchor = GridBagConstraints.CENTER;
         
         for (int i = 0; i < ballCount; i++) {
@@ -187,7 +186,6 @@ public class GameUI extends JPanel {
             ballPanel.add(new JLabel(ballIcon), gbc);
         }
     
-        // Create a wrapper panel with GridBagLayout to center the ballPanel
         JPanel wrapperPanel = new JPanel(new GridBagLayout());
         wrapperPanel.setOpaque(false);
         GridBagConstraints wrapperGbc = new GridBagConstraints();
