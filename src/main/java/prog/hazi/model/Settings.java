@@ -18,11 +18,13 @@ public class Settings {
     }
 
     public void setBoardSize(int bSize) {
-        boardSize = bSize;
+        if (bSize > 0)
+            boardSize = bSize;
     }
 
     public void setBallCount(int bCount) {
-        ballCount = bCount;
+        if (bCount > 0)
+            ballCount = bCount;
     }
 
     public void reset() {

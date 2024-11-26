@@ -7,7 +7,7 @@ import java.util.List;
 public class Board implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    protected final List<Hole> holes = new ArrayList<>();
+    private final List<Hole> holes = new ArrayList<>();
     private final int boardSize; //6*2 + 2
     private final int ballcount;
 
@@ -128,6 +128,7 @@ public class Board implements Serializable {
         return null;
     }
 
+    //! simplify
     /**
      * Cleans all pits of the specified team by transferring all balls from the pits to the team's store.
      *
@@ -139,5 +140,18 @@ public class Board implements Serializable {
             if (h.getId() > 0 && h.getTeam() == t && h.getBallCount() > 0)
                 s1.addBall(((Pit)h).removeBalls());
         }
+    }
+
+    public Team getWinnerTeam(){
+        if (!isGameOver()) return null;
+        return getHole(Team.SOUTH, 0).getBallCount() > getHole(Team.NORTH, 0).getBallCount() ? Team.SOUTH : Team.NORTH;
+    }
+
+    public boolean isGameOver(){
+        return whichPitsEmpty() != null;
+    }
+
+    public boolean isDraw(){
+        return isGameOver() && getHole(Team.SOUTH, 0).getBallCount() == getHole(Team.NORTH, 0).getBallCount();
     }
 }

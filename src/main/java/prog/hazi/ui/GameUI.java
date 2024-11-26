@@ -96,8 +96,27 @@ public class GameUI extends JPanel {
 
         setBackground(currentPlayer.getBgColor());
 
+        writeWinnerIfGameIsOver();
+
         boardPanel.revalidate();
         boardPanel.repaint();
+    }
+
+    /**
+     * Updates the status label to display the winner of the game if the game is over.
+     * If the game is a draw, it sets the status label to "It's a draw!".
+     * Otherwise, it sets the status label to the name of the winning team followed by " wins!".
+     */
+    private void writeWinnerIfGameIsOver(){
+        Team winner = board.getWinnerTeam();
+        if (winner != null) {
+            if (board.isDraw()) {
+                statusLabel.setText("It's a draw!");
+            }
+            else {
+                statusLabel.setText(winner.getName() + " wins!");
+            }
+        }
     }
 
     /**
