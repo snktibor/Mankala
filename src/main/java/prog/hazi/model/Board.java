@@ -128,7 +128,6 @@ public class Board implements Serializable {
         return null;
     }
 
-    //! simplify
     /**
      * Cleans all pits of the specified team by transferring all balls from the pits to the team's store.
      *
@@ -136,21 +135,35 @@ public class Board implements Serializable {
      */
     public void cleanPitsOfTeam(Team t) {
         Store s1 = (Store)getHole(t, 0);
-        for (Hole h: holes) {
-            if (h.getId() > 0 && h.getTeam() == t && h.getBallCount() > 0)
-                s1.addBall(((Pit)h).removeBalls());
+        for (int i = 1; i <= boardSize; i++) {
+            s1.addBall(((Pit)getHole(t, i)).removeBalls());
         }
     }
 
+    /**
+     * Determines the winning team based on the ball count in the store of each team.
+     *
+     * @return the winning team (Team.SOUTH or Team.NORTH) if the game is over, otherwise null.
+     */
     public Team getWinnerTeam(){
         if (!isGameOver()) return null;
         return getHole(Team.SOUTH, 0).getBallCount() > getHole(Team.NORTH, 0).getBallCount() ? Team.SOUTH : Team.NORTH;
     }
 
+    /**
+     * Checks if the game is over.
+     *
+     * @return true if the game is over (i.e., one of the players' pits are empty), false otherwise.
+     */
     public boolean isGameOver(){
         return whichPitsEmpty() != null;
     }
 
+    /**
+     * Determines if the game has ended in a draw.
+     * 
+     * @return true if the game is over and both teams have the same number of balls in their respective starting holes, false otherwise.
+     */
     public boolean isDraw(){
         return isGameOver() && getHole(Team.SOUTH, 0).getBallCount() == getHole(Team.NORTH, 0).getBallCount();
     }
