@@ -1,6 +1,9 @@
 package prog.hazi.model;
 
 public class Settings {
+    private static final int MAX_BOARD_SIZE = 10;
+    private static final int MAX_BALL_COUNT = 10;
+
     private int boardSize;
     private int ballCount;
 
@@ -39,7 +42,7 @@ public class Settings {
      * @param bSize the size of the board to be set. Must be greater than 0.
      */
     public void setBoardSize(int bSize) {
-        if (bSize > 0)
+        if (bSize > 0 && bSize <= MAX_BOARD_SIZE)
             boardSize = bSize;
     }
 
@@ -50,7 +53,7 @@ public class Settings {
      *               must be greater than zero
      */
     public void setBallCount(int bCount) {
-        if (bCount > 0)
+        if (bCount > 0 && bCount <= MAX_BALL_COUNT)
             ballCount = bCount;
     }
 

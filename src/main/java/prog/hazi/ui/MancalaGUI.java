@@ -38,6 +38,7 @@ public class MancalaGUI extends JFrame {
         setTitle("Mancala - Sinka Tibor (M3OZV5)");
         setSize(800, 600);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         setLayout(new CardLayout());
 
         addWindowListener(new WindowAdapter() {
