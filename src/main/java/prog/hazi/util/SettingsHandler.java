@@ -82,7 +82,9 @@ public class SettingsHandler {
             doc = dBuilder.parse(xmlFile);
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
+            System.out.println("File not found or invalid format, resetting to default settings, and creating new settings file.");
             resetSettings(st);
+            writeSettings(st, filePath);
             return;
         }
 

@@ -10,6 +10,7 @@ import prog.hazi.util.SettingsHandler;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -263,7 +264,21 @@ public class MancalaGUI extends JFrame {
      * @return the loaded Board object, or a new Board if loading fails
      */
     private Board loadBoard() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("board.ser"))) {
+        File f = new File("board.ser");
+        
+        // If the file does not exist, create a new board with default settings and save it
+        if (!f.exists()) {
+            Board newBoard = new Board(st.getBoardSize(), st.getBallCount());
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f))) {
+                oos.writeObject(newBoard);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return newBoard;
+        }
+
+        // Load the board from the file if it exists
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
             return (Board)ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -288,7 +303,20 @@ public class MancalaGUI extends JFrame {
      * @return the current player as a Team object, or Team.NORTH if loading fails.
      */
     private Team loadCurrentPlayer() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("currentPlayer.ser"))) {
+        File f = new File("currentPlayer.ser");
+        
+        // If the file does not exist, create a default current player and save it
+        if (!f.exists()) {
+            Team defaultTeam = Team.NORTH;
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f))) {
+                oos.writeObject(defaultTeam);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return defaultTeam;
+        }
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
             return (Team)ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
