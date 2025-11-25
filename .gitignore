@@ -1,0 +1,23 @@
+# Maven build output
+target/
+*.class
+
+# Log files
+*.log
+
+# Game saves, and settings
+*.ser
+settings.xml
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
