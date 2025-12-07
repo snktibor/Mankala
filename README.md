@@ -4,6 +4,13 @@
 ![Build](https://img.shields.io/badge/Build-Maven-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+> [!NOTE]
+> **Egyetemi Projekt**
+>
+> Ez a repository a **Budapesti Műszaki és Gazdaságtudományi Egyetem** *A programozás alapjai 3* (BMEVIIIAB00) tárgyának 2024/25/1 féléves beadandó feladatát tartalmazza.
+
+---
+
 Egy klasszikus stratégiai táblajáték modern, asztali megvalósítása Java nyelven, Swing grafikus felülettel. A projektet a BME programozás házi feladat keretében készítettem.
 
 ## 🌍 A Játékról
